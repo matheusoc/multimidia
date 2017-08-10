@@ -29,11 +29,11 @@ public class Num3 {
 					int g = color.getGreen();
 					int b = color.getBlue();
 					
-					double difrg = Double.valueOf(r)/Double.valueOf(g);
-					double difrb = Double.valueOf(r)/Double.valueOf(b);
+					double difrg = (double) r/g;
+					double difrb = (double) r/b;
 					
 					if (difrg < 1.6) {
-						double l = (0.21*Double.valueOf(r) + 0.7*Double.valueOf(g) + 0.07*Double.valueOf(b));
+						double l = (r + g + b)/3;
 						
 						int luminosity = (int) l;
 						
@@ -43,7 +43,7 @@ public class Num3 {
 					}
 					
 					else if (difrb < 1.5) {
-						double l = (0.21*Double.valueOf(r) + 0.7*Double.valueOf(g) + 0.07*Double.valueOf(b));
+						double l = (r + g + b)/3;
 						
 						int luminosity = (int) l;
 						
