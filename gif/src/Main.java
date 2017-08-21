@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-
-import com.sun.imageio.plugins.gif.GIFImageReader;
 
 public class Main {
 
 	public static void main(String[] args) {
-		GIFImageReader reader = (GIFImageReader) ImageIO.getImageReadersByFormatName("gif").next();
+		ImageReader reader = (ImageReader) ImageIO.getImageReadersByFormatName("png").next();
 		ImageInputStream iss = null;
 		
 		try {
@@ -40,14 +39,18 @@ public class Main {
 				
 				for(int i = 0; i < noi; i++) {
 					BufferedImage image = reader.read(i);
+					BufferedImage second_image = new BufferedImage(image.getWidth(), image.getHeight(), 
+							BufferedImage.TYPE_INT_ARGB);
 					for(int k = 0; k < image.getWidth(); k++) {
 						for(int l = 0; l < image.getHeight(); l++) {
 							if(rgb == image.getRGB(k, l)) {
-								image.setRGB(k, l, color.getRGB());
+								second_image.setRGB(k, l, color.getRGB());
+							} else {
+								second_image.setRGB(k, l, image.getRGB(k, l));
 							}
 						}
 					}
-					ImageIO.write(image, "png", new File("C:/Users/MatheusdeOliveiraCam/Desktop/gif/corki_" + i + ".png"));
+					ImageIO.write(second_image, "png", new File("gifs/corki_"+i+".png"));
 				}
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
